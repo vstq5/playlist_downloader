@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=development
+      - ALLOW_INPROCESS_DOWNLOADS=true
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/playlist_db
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      - YTDLP_COOKIES_B64=${YTDLP_COOKIES_B64}
+      - YTDLP_COOKIES_PATH=${YTDLP_COOKIES_PATH}
+      - YTDLP_COOKIES_URL=${YTDLP_COOKIES_URL}
+      - YTDLP_YOUTUBE_PLAYER_CLIENT=${YTDLP_YOUTUBE_PLAYER_CLIENT}
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=playlist_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

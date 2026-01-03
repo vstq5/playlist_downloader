@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Local history/state
+history.json
+/.cache
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+playlist_downloader.db
+
+# Runtime downloads (created at runtime by backend)
+static/downloads/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Sensitive: browser cookies exports (never commit)
+cookies.txt
+cookies*.txt
+**/cookies.txt
+**/cookies*.txt
+
+# Web / Node
+web/node_modules/
+web/dist/
+web/coverage/
+web/.env
+web/.env.*
+web/*.timestamp-*.mjs
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Tooling caches
+.mypy_cache/
+.ruff_cache/
+
+# SSH Keys
+gitlab_key
+gitlab_key.pub

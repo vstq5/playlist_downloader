@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-dotenv
+pydantic
+pydantic-settings
+requests
+yt-dlp>=2024.11.04
+spotdl
+sqlalchemy
+asyncpg
+aiosqlite
+uvloop; platform_system != "Windows"
+slowapi # Rate limiting
+python-multipart # Required for form data
+ytmusicapi # Fast YouTube Music Search
+
+

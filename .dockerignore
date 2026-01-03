@@ -1,0 +1,26 @@
+# Never send secrets/cookies into Docker build context
+.env
+.env.*
+!.env.example
+cookies.txt
+cookies*.txt
+**/cookies.txt
+**/cookies*.txt
+
+# VCS
+.git
+.gitignore
+
+# Python caches
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Node
+web/node_modules
+web/dist
+
+# Runtime downloads
+static/downloads

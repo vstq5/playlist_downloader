@@ -1,0 +1,45 @@
+name: Mirror to GitLab
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mirror GitHub -> GitLab
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          # Set this to a full HTTPS GitLab repo URL, e.g. https://gitlab.com/<group>/<repo>.git
+          GITLAB_REPO: ${{ secrets.GITLAB_REPO }}
+        run: |
+          if [ -z "$GITLAB_TOKEN" ]; then
+            echo "Missing required secret GITLAB_TOKEN" >&2
+            exit 1
+          fi
+
+          if [ -z "$GITLAB_REPO" ]; then
+            echo "Missing required secret GITLAB_REPO" >&2
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Use OAuth2 token for HTTPS push to GitLab.
+          # Convert https://gitlab.com/group/repo.git -> https://oauth2:TOKEN@gitlab.com/group/repo.git
+          git remote add gitlab "https://oauth2:${GITLAB_TOKEN}@${GITLAB_REPO#https://}"
+
+          # Keep GitLab exactly matching GitHub for all refs.
+          # NOTE: This requires GitLab to allow force-pushes to the protected branch (main),
+          # or for main to be unprotected.
+          git push --mirror --prune gitlab
